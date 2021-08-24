@@ -1,4 +1,4 @@
-package gishlabs.exandriapodcast.podcastservice
+package gishlabs.exandriapodcast.podcastrepository.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -18,6 +18,7 @@ class ListenNotesServiceBuilder() {
             chain.proceed(request)
         }
         .build()
+
 
     fun getService(): ListenNotesService = Retrofit.Builder()
         .baseUrl(baseUrl)

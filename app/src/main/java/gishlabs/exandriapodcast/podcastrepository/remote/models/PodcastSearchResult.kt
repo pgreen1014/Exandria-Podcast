@@ -1,4 +1,4 @@
-package gishlabs.exandriapodcast.podcastservice.models
+package gishlabs.exandriapodcast.podcastrepository.remote.models
 
 import com.google.gson.annotations.SerializedName
 
