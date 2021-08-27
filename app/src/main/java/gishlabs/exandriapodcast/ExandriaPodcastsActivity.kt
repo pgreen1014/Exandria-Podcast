@@ -12,7 +12,7 @@ class ExandriaPodcastsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val viewModel = ViewModelProvider(this).get(ExandriaPodcastsActivityViewModel::class.java)
-//        viewModel.loadCampaignOneEpisodes()
+        viewModel.loadCampaignOneEpisodes()
 //        viewModel.loadCampaignTwoEpisodes()
 //        viewModel.loadBetweenTheSheets()
 

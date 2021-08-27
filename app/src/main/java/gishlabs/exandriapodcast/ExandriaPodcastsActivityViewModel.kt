@@ -9,6 +9,7 @@ import gishlabs.exandriapodcast.podcastrepository.remote.ListenNotesServiceBuild
 import gishlabs.exandriapodcast.podcastrepository.remote.PodcastRemoteService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ExandriaPodcastsActivityViewModel : ViewModel() {
 
@@ -23,10 +24,10 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
         viewModelScope.launch {
             remoteRepo.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
-                    episodes.forEach { Log.d("VoxMachina", it.title)}
+                    episodes.forEach { Timber.d( it.title)}
                 },
                 onFailure = { error ->
-                    Log.e("ExandriaViewModel", "damn we got an error", error)
+                    Timber.e(error, "damn we got an error")
                 })
         }
     }
@@ -35,10 +36,10 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
         viewModelScope.launch {
             remoteRepo.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
-                    episodes.forEach { Log.d("MightyNein", it.title) }
+                    episodes.forEach { Timber.d( it.title) }
                 },
                 onFailure = { error ->
-                    Log.e("MightyNein", "ugh an error", error)
+                    Timber.e(error, "MightyNein", "ugh an error")
                 })
         }
     }
@@ -47,10 +48,10 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
         viewModelScope.launch {
             remoteRepo.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
-                    episodes.forEach { Log.d("BetweenTheSheets", it.title) }
+                    episodes.forEach { Timber.d( it.title) }
                 },
                 onFailure = { error ->
-                    Log.e("BetweenTheSheets", "ugh an error", error)
+                    Timber.e(error,  "ugh an error")
                 })
         }
     }

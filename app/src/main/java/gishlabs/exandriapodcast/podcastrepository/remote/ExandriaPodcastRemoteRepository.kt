@@ -5,6 +5,7 @@ import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.IOException
 import java.lang.Exception
 import java.lang.RuntimeException
@@ -69,6 +70,7 @@ class ExandriaPodcastRemoteRepository(
                 val response = call.execute()
                 if (!response.isSuccessful) {
                     val errorMessage = "Failed to get podcast episodes: ${response.code()}\n${call.request().url()}"
+                    Timber.e(errorMessage)
                     throw UnsuccessfulHTTPStatusCodeException(errorMessage)
                 }
 
