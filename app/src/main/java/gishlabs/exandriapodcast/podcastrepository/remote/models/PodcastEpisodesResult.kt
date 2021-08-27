@@ -6,10 +6,11 @@ data class PodcastEpisodesResult(
     val id: String,
     @SerializedName("total_episodes") val totalEpisodes: Int,
     @SerializedName("earliest_pub_date_ms") val earliestPublishedDateMillis: Long,
-    val episodes: List<PodcastEpisodes>
+    val episodes: List<PodcastEpisode>,
+    @SerializedName("next_episode_pub_date") val nextEpisodePubDate: Long,
 )
 
-data class PodcastEpisodes(
+data class PodcastEpisode(
     val id: String,
     val title: String,
     val description: String,
