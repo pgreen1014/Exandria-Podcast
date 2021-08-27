@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulHTTPStatusCodeException
+import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisodesResult
 import junit.framework.TestCase.*

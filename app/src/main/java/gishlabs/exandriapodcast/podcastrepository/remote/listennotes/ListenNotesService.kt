@@ -1,4 +1,4 @@
-package gishlabs.exandriapodcast.podcastrepository.remote
+package gishlabs.exandriapodcast.podcastrepository.remote.listennotes
 
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisodesResult
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastSearchResult

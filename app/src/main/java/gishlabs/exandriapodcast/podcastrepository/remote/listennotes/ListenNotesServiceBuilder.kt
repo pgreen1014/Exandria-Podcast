@@ -1,4 +1,4 @@
-package gishlabs.exandriapodcast.podcastrepository.remote
+package gishlabs.exandriapodcast.podcastrepository.remote.listennotes
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

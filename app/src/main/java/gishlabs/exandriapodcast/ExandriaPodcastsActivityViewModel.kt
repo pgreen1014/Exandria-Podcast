@@ -1,11 +1,10 @@
 package gishlabs.exandriapodcast
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gishlabs.exandriapodcast.podcastrepository.remote.ExandriaPodcastRemoteRepository
-import gishlabs.exandriapodcast.podcastrepository.remote.ListenNotesService
-import gishlabs.exandriapodcast.podcastrepository.remote.ListenNotesServiceBuilder
+import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
+import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesServiceBuilder
 import gishlabs.exandriapodcast.podcastrepository.remote.PodcastRemoteService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +21,8 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     fun loadCampaignOneEpisodes() {
         viewModelScope.launch {
-            remoteRepo.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
+            remoteRepo.getPodcastOneEpisodes(
+                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title)}
                 },
@@ -34,7 +34,8 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     fun loadCampaignTwoEpisodes() {
         viewModelScope.launch {
-            remoteRepo.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
+            remoteRepo.getPodcastTwoEpisodes(
+                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title) }
                 },
@@ -46,7 +47,8 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     fun loadBetweenTheSheets() {
         viewModelScope.launch {
-            remoteRepo.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST,
+            remoteRepo.getBetweenTheSheetsEpisodes(
+                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title) }
                 },

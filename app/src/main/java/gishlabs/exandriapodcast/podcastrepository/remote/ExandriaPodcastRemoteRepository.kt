@@ -1,6 +1,7 @@
 package gishlabs.exandriapodcast.podcastrepository.remote
 
 import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulHTTPStatusCodeException
+import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
