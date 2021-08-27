@@ -2,26 +2,26 @@ package gishlabs.exandriapodcast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import gishlabs.exandriapodcast.podcastrepository.remote.ExandriaPodcastRemoteRepository
+import gishlabs.exandriapodcast.podcastrepository.remote.GetEpisodesByPodcastServiceImpl
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesServiceBuilder
-import gishlabs.exandriapodcast.podcastrepository.remote.PodcastRemoteService
+import gishlabs.exandriapodcast.podcastrepository.remote.EpisodesByPodcastService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ExandriaPodcastsActivityViewModel : ViewModel() {
 
-    private val remoteRepo: PodcastRemoteService
+    private val repoEpisodesBy: EpisodesByPodcastService
 
     init {
         val service: ListenNotesService = ListenNotesServiceBuilder().getService()
-        remoteRepo = ExandriaPodcastRemoteRepository(service, Dispatchers.IO)
+        repoEpisodesBy = GetEpisodesByPodcastServiceImpl(service, Dispatchers.IO)
     }
 
     fun loadCampaignOneEpisodes() {
         viewModelScope.launch {
-            remoteRepo.getPodcastOneEpisodes(
+            repoEpisodesBy.getPodcastOneEpisodes(
                 ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title)}
@@ -34,7 +34,7 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     fun loadCampaignTwoEpisodes() {
         viewModelScope.launch {
-            remoteRepo.getPodcastTwoEpisodes(
+            repoEpisodesBy.getPodcastTwoEpisodes(
                 ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title) }
@@ -47,7 +47,7 @@ class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     fun loadBetweenTheSheets() {
         viewModelScope.launch {
-            remoteRepo.getBetweenTheSheetsEpisodes(
+            repoEpisodesBy.getBetweenTheSheetsEpisodes(
                 ListenNotesService.SORT_ORDER_OLDEST_FIRST,
                 onSuccess = { episodes ->
                     episodes.forEach { Timber.d( it.title) }

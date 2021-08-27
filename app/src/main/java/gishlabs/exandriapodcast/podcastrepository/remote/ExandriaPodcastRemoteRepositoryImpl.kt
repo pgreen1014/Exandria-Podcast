@@ -1,9 +1,17 @@
-package gishlabs.exandriapodcast.podcastrepository.local
+package gishlabs.exandriapodcast.podcastrepository.remote
 
 import gishlabs.exandriapodcast.podcastrepository.PodcastRepository
+import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
-class ExandriaPodcastLocalRepository : PodcastRepository{
+
+//TODO make remote repository a subclass for initializing data?
+class ExandriaPodcastRemoteRepositoryImpl(
+    private val listenNotesService: ListenNotesService,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+): PodcastRepository {
 
     override fun initializeData() {
         TODO("Not yet implemented")

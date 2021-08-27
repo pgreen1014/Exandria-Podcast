@@ -11,10 +11,10 @@ import java.io.IOException
 import java.lang.Exception
 import java.lang.RuntimeException
 
-class ExandriaPodcastRemoteRepository(
+class GetEpisodesByPodcastServiceImpl(
     private val service: ListenNotesService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) : PodcastRemoteService {
+    ) : EpisodesByPodcastService {
 
     companion object {
         const val TAG = "PodcastRemoteRepo"

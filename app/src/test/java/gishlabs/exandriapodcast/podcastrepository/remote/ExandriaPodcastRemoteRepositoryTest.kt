@@ -31,13 +31,13 @@ class ExandriaPodcastRemoteRepositoryTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var mockListenNotesService: ListenNotesService
-    private lateinit var repository: ExandriaPodcastRemoteRepository
+    private lateinit var serviceImpl: GetEpisodesByPodcastServiceImpl
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         mockListenNotesService = mock()
-        repository = ExandriaPodcastRemoteRepository(mockListenNotesService, testDispatcher)
+        serviceImpl = GetEpisodesByPodcastServiceImpl(mockListenNotesService, testDispatcher)
     }
 
     @After
@@ -55,7 +55,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         }
         val failureCallback: (error: Throwable) -> Unit = { fail("onFail() should not be called") }
 
-        repository.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertEquals(
             "onSuccess should be called with the number of episodes returned from service",
@@ -73,7 +73,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         }
         val failureCallback: (error: Throwable) -> Unit = { fail("onFail() should not be called") }
 
-        repository.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertEquals(
             "onSuccess should be called with the number of episodes returned from service",
@@ -91,7 +91,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         }
         val failureCallback: (error: Throwable) -> Unit = { fail("onFail() should not be called") }
 
-        repository.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertEquals(
             "onSuccess should be called with the number of episodes returned from service",
@@ -117,7 +117,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         var numberOfExceptionsTested = 0
         exceptionsToTest.forEach {
             mockFailedNetworkCall(it)
-            repository.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+            serviceImpl.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
             assertEquals("onFail lambda should be called with throwable", expectedMessage, messageResult)
             numberOfExceptionsTested++
         }
@@ -142,7 +142,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         var numberOfExceptionsTested = 0
         exceptionsToTest.forEach {
             mockFailedNetworkCall(it)
-            repository.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+            serviceImpl.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
             assertEquals("onFail lambda should be called with throwable", expectedMessage, messageResult)
             numberOfExceptionsTested++
         }
@@ -167,7 +167,7 @@ class ExandriaPodcastRemoteRepositoryTest {
         var numberOfExceptionsTested = 0
         exceptionsToTest.forEach {
             mockFailedNetworkCall(it)
-            repository.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+            serviceImpl.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
             assertEquals("onFail lambda should be called with throwable", expectedMessage, messageResult)
             numberOfExceptionsTested++
         }
@@ -184,7 +184,7 @@ class ExandriaPodcastRemoteRepositoryTest {
             errorResult = error
         }
 
-        repository.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getPodcastOneEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertTrue("Unsuccessful Http response code should throw an UnsuccessfulNetoworkResponseException",
             errorResult is UnsuccessfulHTTPStatusCodeException)
@@ -199,7 +199,7 @@ class ExandriaPodcastRemoteRepositoryTest {
             errorResult = error
         }
 
-        repository.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getPodcastTwoEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertTrue("Unsuccessful Http response code should throw an UnsuccessfulNetoworkResponseException",
             errorResult is UnsuccessfulHTTPStatusCodeException)
@@ -214,7 +214,7 @@ class ExandriaPodcastRemoteRepositoryTest {
             errorResult = error
         }
 
-        repository.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
+        serviceImpl.getBetweenTheSheetsEpisodes(ListenNotesService.SORT_ORDER_OLDEST_FIRST, successCallback, failureCallback)
 
         assertTrue("Unsuccessful Http response code should throw an UnsuccessfulNetoworkResponseException",
             errorResult is UnsuccessfulHTTPStatusCodeException)
