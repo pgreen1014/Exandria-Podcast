@@ -1,12 +1,13 @@
 package gishlabs.exandriapodcast.podcastrepository.remote
 
-import android.util.Log
-import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulNetworkResponseException
+import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulHTTPStatusCodeException
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.lang.Exception
+import java.lang.RuntimeException
 
 class ExandriaPodcastRemoteRepository(
     private val service: ListenNotesService,
@@ -21,7 +22,7 @@ class ExandriaPodcastRemoteRepository(
                                                onSuccess: (episodes: List<PodcastEpisode>) -> Unit,
                                                onFailure: (error: Throwable) -> Unit) {
         try {
-            val episodes = getAllPodcastsEpisodes(ListenNotesService.PODCAST_ID_ORIGINAL, sortOrder)
+            val episodes = getAllPodcastEpisodes(ListenNotesService.PODCAST_ID_ORIGINAL, sortOrder)
             onSuccess(episodes)
         } catch (exception: Exception) {
             onFailure(exception)
@@ -32,7 +33,7 @@ class ExandriaPodcastRemoteRepository(
                                                onSuccess: (episodes: List<PodcastEpisode>) -> Unit,
                                                onFailure: (error: Throwable) -> Unit) {
         try {
-            val episodes = getAllPodcastsEpisodes(ListenNotesService.PODCAST_ID_CURRENT, sortOrder)
+            val episodes = getAllPodcastEpisodes(ListenNotesService.PODCAST_ID_CURRENT, sortOrder)
             onSuccess(episodes)
         } catch (exception: Exception) {
             onFailure(exception)
@@ -43,7 +44,7 @@ class ExandriaPodcastRemoteRepository(
                                                      onSuccess: (episodes: List<PodcastEpisode>) -> Unit,
                                                      onFailure: (error: Throwable) -> Unit) {
         try {
-            val episodes = getAllPodcastsEpisodes(ListenNotesService.PODCAST_ID_BETWEEN_THE_SHEETS, sortOrder)
+            val episodes = getAllPodcastEpisodes(ListenNotesService.PODCAST_ID_BETWEEN_THE_SHEETS, sortOrder)
             onSuccess(episodes)
         } catch (exception: Exception) {
             onFailure(exception)
@@ -51,7 +52,8 @@ class ExandriaPodcastRemoteRepository(
     }
 
     @Suppress("BlockingMethodInNonBlockingContext")
-    private suspend fun getAllPodcastsEpisodes(podcastId: String, sortOrder: String): List<PodcastEpisode> {
+    @Throws(IOException::class, RuntimeException::class, UnsuccessfulHTTPStatusCodeException::class)
+    private suspend fun getAllPodcastEpisodes(podcastId: String, sortOrder: String): List<PodcastEpisode> {
         return withContext(dispatcher) {
             var nextEpisodePubDate: Long? = null
             var totalEpisodes = 0
@@ -67,7 +69,7 @@ class ExandriaPodcastRemoteRepository(
                 val response = call.execute()
                 if (!response.isSuccessful) {
                     val errorMessage = "Failed to get podcast episodes: ${response.code()}\n${call.request().url()}"
-                    throw UnsuccessfulNetworkResponseException(errorMessage)
+                    throw UnsuccessfulHTTPStatusCodeException(errorMessage)
                 }
 
                 response.body()?.let {
@@ -76,7 +78,6 @@ class ExandriaPodcastRemoteRepository(
                 }
 
                 response.body()?.episodes?.let { it ->
-                    it.forEach { Log.d(TAG, "Adding ${it.title} to episode result list") }
                     episodes.addAll(it)
                 }
 
