@@ -1,6 +1,7 @@
 package gishlabs.exandriapodcast.podcastrepository.remote
 
 import gishlabs.exandriapodcast.podcastrepository.PodcastRepository
+import gishlabs.exandriapodcast.podcastrepository.models.Podcast
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
 import kotlinx.coroutines.CoroutineDispatcher
@@ -46,6 +47,10 @@ class ExandriaPodcastRemoteRepositoryImpl(
     }
 
     override fun deleteDownloadedPodcast(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun insertPodcast(podcast: Podcast) {
         TODO("Not yet implemented")
     }
 }

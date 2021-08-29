@@ -1,5 +1,6 @@
 package gishlabs.exandriapodcast.podcastrepository
 
+import gishlabs.exandriapodcast.podcastrepository.models.Podcast
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
 
 interface PodcastRepository {
@@ -12,4 +13,5 @@ interface PodcastRepository {
     fun getRecentPodcasts(callback: () -> List<Podcasts>)
     fun getAudioForPodcast(id: String, callback: () -> Unit)
     fun deleteDownloadedPodcast(id: String)
+    fun insertPodcast(podcast: Podcast)
 }

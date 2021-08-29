@@ -1,6 +1,7 @@
 package gishlabs.exandriapodcast.podcastrepository.local
 
 import gishlabs.exandriapodcast.podcastrepository.PodcastRepository
+import gishlabs.exandriapodcast.podcastrepository.models.Podcast
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
 
 class ExandriaPodcastLocalRepository : PodcastRepository{
@@ -38,6 +39,10 @@ class ExandriaPodcastLocalRepository : PodcastRepository{
     }
 
     override fun deleteDownloadedPodcast(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun insertPodcast(podcast: Podcast) {
         TODO("Not yet implemented")
     }
 }

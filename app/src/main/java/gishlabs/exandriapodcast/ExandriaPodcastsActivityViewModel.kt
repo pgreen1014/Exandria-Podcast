@@ -6,13 +6,13 @@ import gishlabs.exandriapodcast.podcastrepository.remote.GetEpisodesByPodcastSer
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesServiceBuilder
 import gishlabs.exandriapodcast.podcastrepository.remote.EpisodesByPodcastService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class ExandriaPodcastsActivityViewModel : ViewModel() {
 
     private val repoEpisodesBy: EpisodesByPodcastService
+    private val TAG = "coroutines test"
 
     init {
         val service: ListenNotesService = ListenNotesServiceBuilder().getService()
