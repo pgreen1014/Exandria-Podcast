@@ -11,14 +11,10 @@ import java.io.IOException
 import java.lang.Exception
 import java.lang.RuntimeException
 
-class GetEpisodesByPodcastServiceImpl(
+class PodcastServiceRepositoryImpl(
     private val service: ListenNotesService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-    ) : EpisodesByPodcastService {
-
-    companion object {
-        const val TAG = "PodcastRemoteRepo"
-    }
+    ) : PodcastServiceRepository {
 
     override suspend fun getPodcastOneEpisodes(sortOrder: String,
                                                onSuccess: (episodes: List<PodcastEpisode>) -> Unit,

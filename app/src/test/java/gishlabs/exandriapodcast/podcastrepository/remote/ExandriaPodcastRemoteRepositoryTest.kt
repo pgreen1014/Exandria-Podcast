@@ -31,13 +31,13 @@ class ExandriaPodcastRemoteRepositoryTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var mockListenNotesService: ListenNotesService
-    private lateinit var serviceImpl: GetEpisodesByPodcastServiceImpl
+    private lateinit var serviceImpl: PodcastServiceRepositoryImpl
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         mockListenNotesService = mock()
-        serviceImpl = GetEpisodesByPodcastServiceImpl(mockListenNotesService, testDispatcher)
+        serviceImpl = PodcastServiceRepositoryImpl(mockListenNotesService, testDispatcher)
     }
 
     @After

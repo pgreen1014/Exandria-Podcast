@@ -1,13 +1,13 @@
 package gishlabs.exandriapodcast.podcastrepository
 
 import gishlabs.exandriapodcast.podcastrepository.models.Podcast
-import gishlabs.exandriapodcast.podcastrepository.remote.EpisodesByPodcastService
+import gishlabs.exandriapodcast.podcastrepository.remote.PodcastServiceRepository
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
 
 class PodcastRepositoryImpl(
         private val localRepo: PodcastRepository,
-        private val remoteRepo: PodcastRepository,
-        private val getEpisodesService: EpisodesByPodcastService
+        private val remoteRepo: PodcastServiceRepository,
+        private val getEpisodesServiceRepository: PodcastServiceRepository
     ): PodcastRepository {
 
 //    companion object {
@@ -19,10 +19,6 @@ class PodcastRepositoryImpl(
 //        ExandriaPodcastDatabase::class.java,
 //        DATABASE_NAME
 //    ).build()
-
-    override fun initializeData() {
-        TODO("Not yet implemented")
-    }
 
     override fun getAllExandriaPodcasts(callback: () -> List<Podcasts>) {
         TODO("Not yet implemented")

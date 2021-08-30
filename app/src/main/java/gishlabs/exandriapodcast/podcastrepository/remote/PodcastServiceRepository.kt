@@ -2,7 +2,7 @@ package gishlabs.exandriapodcast.podcastrepository.remote
 
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 
-interface EpisodesByPodcastService {
+interface PodcastServiceRepository {
 
     suspend fun getPodcastOneEpisodes(sortOrder: String,
                                       onSuccess: (episodes: List<PodcastEpisode>) -> Unit,

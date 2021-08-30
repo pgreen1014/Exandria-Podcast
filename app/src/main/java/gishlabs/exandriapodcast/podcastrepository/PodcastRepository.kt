@@ -4,7 +4,6 @@ import gishlabs.exandriapodcast.podcastrepository.models.Podcast
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
 
 interface PodcastRepository {
-    fun initializeData()
     fun getAllExandriaPodcasts(callback: () -> List<Podcasts>)
     fun getAllVoxMachinaPodcasts(callback: () -> List<Podcasts>)
     fun getAllMightyNeinPodcasts(callback: () -> List<Podcasts>)
