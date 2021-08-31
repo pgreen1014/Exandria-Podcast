@@ -1,46 +1,53 @@
 package gishlabs.exandriapodcast.podcastrepository
 
-import gishlabs.exandriapodcast.podcastrepository.models.Podcast
+import gishlabs.exandriapodcast.podcastrepository.local.database.PodcastDao
+import gishlabs.exandriapodcast.podcastrepository.models.*
 import gishlabs.exandriapodcast.podcastrepository.remote.PodcastServiceRepository
 import gishlabs.exandriapodcast.podcastrepository.remote.models.Podcasts
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PodcastRepositoryImpl(
-        private val localRepo: PodcastRepository,
+        private val podcastsDao: PodcastDao,
         private val remoteRepo: PodcastServiceRepository,
-        private val getEpisodesServiceRepository: PodcastServiceRepository
     ): PodcastRepository {
 
-//    companion object {
-//        private const val DATABASE_NAME = "exandria_podcast_database"
-//    }
-//
-//    private val database : ExandriaPodcastDatabase = Room.databaseBuilder(
-//        context,
-//        ExandriaPodcastDatabase::class.java,
-//        DATABASE_NAME
-//    ).build()
-
-    override fun getAllExandriaPodcasts(callback: () -> List<Podcasts>) {
-        TODO("Not yet implemented")
+    override suspend fun getAllExandriaPodcasts(callback: (List<Podcast>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val result = podcastsDao.getAllEpisodes()
+            callback(result)
+        }
     }
 
-    override fun getAllVoxMachinaPodcasts(callback: () -> List<Podcasts>) {
-        TODO("Not yet implemented")
+    override suspend fun getAllVoxMachinaPodcasts(callback: (List<Podcast>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val result = podcastsDao.getAllEpisodes(VOX_MACHINA_CAMPAIGN)
+            callback(result)
+        }
     }
 
-    override fun getAllMightyNeinPodcasts(callback: () -> List<Podcasts>) {
-        TODO("Not yet implemented")
+    override suspend fun getAllMightyNeinPodcasts(callback: (List<Podcast>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val result = podcastsDao.getAllEpisodes(MIGHTY_NEIN_CAMPAIGN)
+            callback(result)
+        }
     }
 
-    override fun getAllTalksMachinaPodcasts(callback: () -> List<Podcasts>) {
-        TODO("Not yet implemented")
+    override suspend fun getAllTalksMachinaPodcasts(callback: (List<Podcast>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val result = podcastsDao.getAllEpisodes(TALKS_MACHINA)
+            callback(result)
+        }
     }
 
-    override fun getAllExandriaUnlimitedPocasts(callback: () -> List<Podcasts>) {
-        TODO("Not yet implemented")
+    override suspend fun getAllExandriaUnlimitedPocasts(callback: (List<Podcast>) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val result = podcastsDao.getAllEpisodes(EXANDRIA_UNLIMITED)
+            callback(result)
+        }
     }
 
-    override fun getRecentPodcasts(callback: () -> List<Podcasts>) {
+    override fun checkForNewEpisodes() {
         TODO("Not yet implemented")
     }
 

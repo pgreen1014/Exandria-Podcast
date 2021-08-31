@@ -1,7 +1,7 @@
 package gishlabs.exandriapodcast.podcastrepository
 
 import com.nhaarman.mockitokotlin2.*
-import gishlabs.exandriapodcast.podcastrepository.models.Podcast
+import gishlabs.exandriapodcast.podcastrepository.local.database.PodcastDao
 import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulHTTPStatusCodeException
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
@@ -19,7 +19,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Response
@@ -31,7 +30,7 @@ class PodcastDataInitializerTest {
     @ExperimentalCoroutinesApi
     private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var mockService: ListenNotesService
-    private lateinit var mockLocalRepository: PodcastRepository
+    private lateinit var mockLocalRepository: PodcastDao
     private lateinit var systemUnderTest: PodcastDataInitializer
     private lateinit var mockEpisodesCall: Call<PodcastEpisodesResult>
 

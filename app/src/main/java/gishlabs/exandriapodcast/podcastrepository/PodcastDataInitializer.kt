@@ -1,5 +1,6 @@
 package gishlabs.exandriapodcast.podcastrepository
 
+import gishlabs.exandriapodcast.podcastrepository.local.database.PodcastDao
 import gishlabs.exandriapodcast.podcastrepository.models.BETWEEN_THE_SHEETS
 import gishlabs.exandriapodcast.podcastrepository.models.Podcast
 import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.UnsuccessfulHTTPStatusCodeException
@@ -12,9 +13,9 @@ import java.io.IOException
 import java.lang.RuntimeException
 
 class PodcastDataInitializer(
-    private val service: ListenNotesService,
-    private val localRepository: PodcastRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+        private val service: ListenNotesService,
+        private val podcastDao: PodcastDao,
+        private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     @Throws(UnsuccessfulHTTPStatusCodeException::class)
@@ -79,6 +80,6 @@ class PodcastDataInitializer(
             showID = showId,
             publishedDateMillis = episode.publishedDateMillis
         )
-        localRepository.insertPodcast(podcast)
+        podcastDao.insertPodcast(podcast)
     }
 }
