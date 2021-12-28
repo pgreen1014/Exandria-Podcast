@@ -12,6 +12,8 @@ import timber.log.Timber
 import java.io.IOException
 import java.lang.RuntimeException
 
+
+//TODO call this using RoomDatabase#Callback. override onCreate or onOpen https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1
 class PodcastDataInitializer(
         private val service: ListenNotesService,
         private val podcastDao: PodcastDao,
@@ -65,8 +67,8 @@ class PodcastDataInitializer(
         }
     }
 
-    private fun dbInsertPodcastEpisodeResult(episode: PodcastEpisode, podcastId: String) {
-        val showId = if (podcastId == ListenNotesService.PODCAST_ID_BETWEEN_THE_SHEETS) {
+    private fun dbInsertPodcastEpisodeResult(episode: PodcastEpisode, podcastShowId: String) {
+        val showId = if (podcastShowId == ListenNotesService.PODCAST_ID_BETWEEN_THE_SHEETS) {
             BETWEEN_THE_SHEETS
         } else {
             AssignShowIdUseCase().assignShowId(episode.title)
@@ -80,6 +82,6 @@ class PodcastDataInitializer(
             showID = showId,
             publishedDateMillis = episode.publishedDateMillis
         )
-        podcastDao.insertPodcast(podcast)
+        podcastDao.insertEpisode(podcast)
     }
 }

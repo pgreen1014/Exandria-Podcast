@@ -6,6 +6,7 @@ import gishlabs.exandriapodcast.podcastrepository.remote.exceptions.Unsuccessful
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisode
 import gishlabs.exandriapodcast.podcastrepository.remote.models.PodcastEpisodesResult
+import gishlabs.testutils.CoroutinesTest
 import junit.framework.TestCase.assertTrue
 import junit.framework.TestCase.fail
 import kotlinx.coroutines.Dispatchers
@@ -24,20 +25,18 @@ import retrofit2.Call
 import retrofit2.Response
 import java.lang.Exception
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class PodcastDataInitializerTest {
+class PodcastDataInitializerTest : CoroutinesTest() {
 
-    @ExperimentalCoroutinesApi
-    private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var mockService: ListenNotesService
     private lateinit var mockLocalRepository: PodcastDao
     private lateinit var systemUnderTest: PodcastDataInitializer
     private lateinit var mockEpisodesCall: Call<PodcastEpisodesResult>
 
-    @ExperimentalCoroutinesApi
     @Before
-    fun setup() {
-        Dispatchers.setMain(testDispatcher)
+    override fun setUp() {
+        super.setUp()
         mockService = mock()
         mockLocalRepository = mock()
         mockEpisodesCall = mock()
@@ -46,9 +45,8 @@ class PodcastDataInitializerTest {
 
     @ExperimentalCoroutinesApi
     @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
+    override fun tearDown() {
+        super.tearDown()
     }
 
     @Test
@@ -66,7 +64,7 @@ class PodcastDataInitializerTest {
         systemUnderTest.initialize {  }
 
         val expectedNumberOfInvocations = expectedResult.episodes.size * 3
-        verify(mockLocalRepository, times(expectedNumberOfInvocations)).insertPodcast(any())
+        verify(mockLocalRepository, times(expectedNumberOfInvocations)).insertEpisode(any())
     }
 
     @Test
@@ -86,7 +84,7 @@ class PodcastDataInitializerTest {
         val expectedResult = mockSuccessfulPodcastEpisodesCall()
         val expectedNumberOfInvocations = expectedResult.episodes.size * 3
         systemUnderTest.initialize {
-            verify(mockLocalRepository, times(expectedNumberOfInvocations)).insertPodcast(any())
+            verify(mockLocalRepository, times(expectedNumberOfInvocations)).insertEpisode(any())
         }
     }
 

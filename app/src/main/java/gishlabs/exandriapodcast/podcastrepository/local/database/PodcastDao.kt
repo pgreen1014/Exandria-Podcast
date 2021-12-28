@@ -2,6 +2,7 @@ package gishlabs.exandriapodcast.podcastrepository.local.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import gishlabs.exandriapodcast.podcastrepository.models.MIGHTY_NEIN_CAMPAIGN
 import gishlabs.exandriapodcast.podcastrepository.models.Podcast
@@ -18,6 +19,10 @@ interface PodcastDao {
     @Query("SELECT * FROM podcast WHERE showID=$MIGHTY_NEIN_CAMPAIGN ORDER BY publishedDateMillis ASC LIMIT 10")
     fun getRecentEpisodes(): List<Podcast>
 
-    @Insert
-    fun insertPodcast(vararg podcast: Podcast)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEpisode(vararg podcast: Podcast)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEpisodes(episodes: List<Podcast>)
+
 }

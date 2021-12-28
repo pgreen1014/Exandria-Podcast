@@ -9,8 +9,7 @@ interface PodcastRepository {
     suspend fun getAllMightyNeinPodcasts(callback: (List<Podcast>) -> Unit)
     suspend fun getAllTalksMachinaPodcasts(callback: (List<Podcast>) -> Unit)
     suspend fun getAllExandriaUnlimitedPocasts(callback: (List<Podcast>) -> Unit)
-    fun checkForNewEpisodes()
+    suspend fun getAllBetweenTheSheetsPodcasts(callback: (List<Podcast>) -> Unit)
     fun getAudioForPodcast(id: String, callback: () -> Unit)
     fun deleteDownloadedPodcast(id: String)
-    fun insertPodcast(podcast: Podcast)
 }

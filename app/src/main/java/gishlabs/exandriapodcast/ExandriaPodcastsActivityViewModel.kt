@@ -2,59 +2,70 @@ package gishlabs.exandriapodcast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import gishlabs.exandriapodcast.podcastrepository.remote.PodcastServiceRepositoryImpl
+import gishlabs.exandriapodcast.podcastrepository.PodcastDataInitializer
+import gishlabs.exandriapodcast.podcastrepository.PodcastRepository
+import gishlabs.exandriapodcast.podcastrepository.PodcastRepositoryImpl
+import gishlabs.exandriapodcast.podcastrepository.remote.PodcastServiceImpl
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesService
 import gishlabs.exandriapodcast.podcastrepository.remote.listennotes.ListenNotesServiceBuilder
-import gishlabs.exandriapodcast.podcastrepository.remote.PodcastServiceRepository
+import gishlabs.exandriapodcast.repotesters.DatabaseSingleton
 import kotlinx.coroutines.*
 import timber.log.Timber
 
 class ExandriaPodcastsActivityViewModel : ViewModel() {
 
-    private val repoRepository: PodcastServiceRepository
-    private val TAG = "coroutines test"
+    private val repoInitializer: PodcastDataInitializer
+    private val podcastRepository: PodcastRepository
 
     init {
         val service: ListenNotesService = ListenNotesServiceBuilder().getService()
-        repoRepository = PodcastServiceRepositoryImpl(service, Dispatchers.IO)
+        val db = DatabaseSingleton.get()
+        repoInitializer = PodcastDataInitializer(service, db.podcastDao)
+        val podcastService = PodcastServiceImpl(service, Dispatchers.IO, viewModelScope.coroutineContext)
+        podcastRepository = PodcastRepositoryImpl(db.podcastDao, podcastService)
     }
 
-    fun loadCampaignOneEpisodes() {
+    fun initializeData(onComplete: () -> Unit) {
         viewModelScope.launch {
-            repoRepository.getPodcastOneEpisodes(
-                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
-                onSuccess = { episodes ->
-                    episodes.forEach { Timber.d( it.title)}
-                },
-                onFailure = { error ->
-                    Timber.e(error, "damn we got an error")
-                })
+            repoInitializer.initialize {
+                Timber.d("COMPLETED DATA INITIALIZATION")
+                onComplete()
+            }
         }
     }
 
-    fun loadCampaignTwoEpisodes() {
+    fun getVoxMachinaEpisodes() {
         viewModelScope.launch {
-            repoRepository.getPodcastTwoEpisodes(
-                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
-                onSuccess = { episodes ->
-                    episodes.forEach { Timber.d( it.title) }
-                },
-                onFailure = { error ->
-                    Timber.e(error, "MightyNein", "ugh an error")
-                })
+            podcastRepository.getAllVoxMachinaPodcasts {
+                Timber.d("Got Vox Machina episodes ${it.size}")
+                it.forEach { episode ->
+                    Timber.d(episode.episodeTitle)
+                }
+            }
         }
     }
 
-    fun loadBetweenTheSheets() {
+    fun getMightyNeinEpisodes() {
         viewModelScope.launch {
-            repoRepository.getBetweenTheSheetsEpisodes(
-                ListenNotesService.SORT_ORDER_OLDEST_FIRST,
-                onSuccess = { episodes ->
-                    episodes.forEach { Timber.d( it.title) }
-                },
-                onFailure = { error ->
-                    Timber.e(error,  "ugh an error")
-                })
+            podcastRepository.getAllMightyNeinPodcasts {
+                Timber.d("Got Mighty Nein episodes ${it.size}")
+                it.forEach { episode ->
+                    Timber.d(episode.episodeTitle)
+                }
+            }
         }
     }
+
+    fun getExandriaUnlimitedEpisodes() {
+        viewModelScope.launch {
+            podcastRepository.getAllExandriaUnlimitedPocasts {
+                Timber.d("Got Exandria Unlimited episodes ${it.size}")
+                it.forEach { episode ->
+                    Timber.d(episode.episodeTitle)
+                }
+            }
+        }
+    }
+
+
 }
