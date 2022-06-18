@@ -1,4 +1,4 @@
-package gishlabs.exandriapodcast
+package gishlabs.exandriapodcast.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

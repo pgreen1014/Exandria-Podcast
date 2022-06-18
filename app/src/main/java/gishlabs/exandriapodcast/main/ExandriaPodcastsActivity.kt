@@ -1,8 +1,9 @@
-package gishlabs.exandriapodcast
+package gishlabs.exandriapodcast.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import gishlabs.exandriapodcast.R
 
 class ExandriaPodcastsActivity : AppCompatActivity() {
 
