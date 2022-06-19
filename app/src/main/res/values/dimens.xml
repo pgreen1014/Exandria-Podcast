@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="h5">24sp</dimen>
+    <dimen name="h6">20sp</dimen>
+    <dimen name="body1">16sp</dimen>
+</resources>

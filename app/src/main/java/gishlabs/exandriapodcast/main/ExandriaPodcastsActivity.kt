@@ -2,8 +2,10 @@ package gishlabs.exandriapodcast.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import gishlabs.exandriapodcast.R
+import gishlabs.exandriapodcast.showselction.ShowSelectionFragment
 
 class ExandriaPodcastsActivity : AppCompatActivity() {
 
@@ -11,7 +13,12 @@ class ExandriaPodcastsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel = ViewModelProvider(this).get(ExandriaPodcastsActivityViewModel::class.java)
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<ShowSelectionFragment>(R.id.fragment_container_view)
+            }
+        }
 
     }
 }
