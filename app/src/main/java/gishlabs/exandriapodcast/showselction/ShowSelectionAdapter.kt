@@ -1,13 +1,14 @@
 package gishlabs.exandriapodcast.showselction
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import gishlabs.exandriapodcast.R
+import gishlabs.exandriapodcast.showepisodes.EpisodesActivity
 
 class ShowSelectionAdapter(private val shows: List<String>) : RecyclerView.Adapter<ShowSelectionAdapter.ViewHolder>() {
 
@@ -18,7 +19,12 @@ class ShowSelectionAdapter(private val shows: List<String>) : RecyclerView.Adapt
         init {
             titleTextView = view.findViewById(R.id.show_title)
             showContainerView = view.findViewById(R.id.show_container)
-            showContainerView.setOnClickListener { Toast.makeText(view.context, "${titleTextView.text} Clicked", Toast.LENGTH_SHORT).show() }
+            showContainerView.setOnClickListener {
+                val intent = Intent(view.context, EpisodesActivity::class.java).apply {
+                    putExtra(EpisodesActivity.ARG_SHOW_TITLE, titleTextView.text)
+                }
+                view.context.startActivity(intent)
+            }
         }
     }
 

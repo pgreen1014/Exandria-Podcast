@@ -3,4 +3,5 @@
     <dimen name="h5">24sp</dimen>
     <dimen name="h6">20sp</dimen>
     <dimen name="body1">16sp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
 </resources>

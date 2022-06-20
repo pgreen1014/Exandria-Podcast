@@ -12,7 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExandriaPodcast">
-        <activity android:name=".main.ExandriaPodcastsActivity" android:exported="true">
+        <activity
+            android:name=".showepisodes.EpisodesActivity"
+            android:exported="false"
+            android:parentActivityName=".main.ExandriaPodcastsActivity"
+            android:theme="@style/Theme.ExandriaPodcast.NoActionBar"/>
+        <activity
+            android:name=".main.ExandriaPodcastsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
