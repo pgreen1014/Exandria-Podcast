@@ -19,6 +19,7 @@ class EpisodesActivity : AppCompatActivity() {
 
         intent.extras?.let {
             supportActionBar?.title = it.getString(ARG_SHOW_TITLE)
+            binding.toolbarShowImage.setImageResource(it.getInt(ARG_SHOW_IMAGE_RESOURCE_ID))
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initEpisodesRecyclerView()
@@ -51,6 +52,7 @@ class EpisodesActivity : AppCompatActivity() {
     }
 
     companion object {
-       const val ARG_SHOW_TITLE = "gishlabs.exandriapodcast.showepisodes.show_title"
+        const val ARG_SHOW_IMAGE_RESOURCE_ID = "show_image"
+        const val ARG_SHOW_TITLE = "gishlabs.exandriapodcast.showepisodes.show_title"
     }
 }

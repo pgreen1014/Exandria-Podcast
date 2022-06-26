@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import gishlabs.exandriapodcast.R
+import gishlabs.exandriapodcast.data.Show
 import gishlabs.exandriapodcast.databinding.FragmentShowSelectionBinding
 
 class ShowSelectionFragment : Fragment() {
@@ -26,10 +28,10 @@ class ShowSelectionFragment : Fragment() {
     private fun initShowsGrid() {
         binding.showsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         binding.showsRecyclerView.adapter = ShowSelectionAdapter(listOf(
-            "Vox Machina",
-            "Mighty Nein",
-            "Bells Hells",
-            "Talks Machina"
+            Show("Vox Machina", R.drawable.place_holder_image),
+            Show("Mighty Nein", R.drawable.place_holder_image),
+            Show("Bells Hells", R.drawable.place_holder_image),
+            Show("Talks Machina", R.drawable.place_holder_image)
         ))
 
         binding.showsRecyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
