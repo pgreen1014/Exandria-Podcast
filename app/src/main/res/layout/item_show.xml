@@ -8,11 +8,15 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
-        style="@style/ShowItemBackground"
+        android:id="@+id/show_image_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/place_holder_image"
+        android:transitionName="show_background_image"
         app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/show_image_view"
         tools:text="Vox Machina" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

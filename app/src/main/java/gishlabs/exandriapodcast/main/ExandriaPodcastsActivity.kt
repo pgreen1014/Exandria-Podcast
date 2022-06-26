@@ -1,11 +1,13 @@
 package gishlabs.exandriapodcast.main
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import gishlabs.exandriapodcast.R
 import gishlabs.exandriapodcast.showselction.ShowSelectionFragment
+import timber.log.Timber
 
 class ExandriaPodcastsActivity : AppCompatActivity() {
 

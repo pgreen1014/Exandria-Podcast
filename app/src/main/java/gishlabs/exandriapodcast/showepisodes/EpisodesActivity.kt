@@ -2,8 +2,10 @@ package gishlabs.exandriapodcast.showepisodes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import gishlabs.exandriapodcast.databinding.ActivityEpisodesBinding
+import timber.log.Timber
 
 class EpisodesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEpisodesBinding
@@ -20,6 +22,22 @@ class EpisodesActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initEpisodesRecyclerView()
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                Timber.d("override back")
+                finishAfterTransition()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        finishAfterTransition()
     }
 
     private fun initEpisodesRecyclerView() {
