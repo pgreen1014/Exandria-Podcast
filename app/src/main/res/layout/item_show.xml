@@ -13,7 +13,6 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/place_holder_image"
-        android:transitionName="show_background_image"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

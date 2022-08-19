@@ -1,15 +1,15 @@
 package gishlabs.exandriapodcast.main
 
 import android.os.Bundle
-import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import gishlabs.exandriapodcast.R
+import gishlabs.exandriapodcast.showepisodes.EpisodesFragment
 import gishlabs.exandriapodcast.showselction.ShowSelectionFragment
-import timber.log.Timber
 
-class ExandriaPodcastsActivity : AppCompatActivity() {
+class ExandriaPodcastsActivity : AppCompatActivity(), ShowSelectionFragment.Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,5 +22,19 @@ class ExandriaPodcastsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onShowSelected(
+        sharedImage: ImageView,
+        transitionName: String,
+        showTitle: String,
+        imageResourceId: Int
+    ) {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            addSharedElement(sharedImage, EpisodesFragment.TRANSITION_NAME_SHOW_SPLASH)
+            replace(R.id.fragment_container_view, EpisodesFragment.newInstance(showTitle, imageResourceId))
+            addToBackStack(null)
+        }
     }
 }
