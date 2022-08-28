@@ -21,18 +21,20 @@
 
 <!--    https://medium.com/@ankitashettya/collapsing-toolbar-in-android-using-androidx-jetpack-d54678ac4cbc-->
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_width="match_parent">
+        android:theme="@style/TransparentTheme">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="@dimen/toolbar_elevation"
+            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
             app:contentScrim="?attr/colorPrimaryVariant"
             app:expandedTitleGravity="bottom"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:elevation="@dimen/toolbar_elevation"
-            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight">
 
             <ImageView
@@ -48,10 +50,10 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
                 android:elevation="@dimen/toolbar_elevation"
                 android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"/>
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

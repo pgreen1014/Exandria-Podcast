@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import gishlabs.exandriapodcast.R
-import gishlabs.exandriapodcast.databinding.ActivityEpisodesBinding
+import gishlabs.exandriapodcast.databinding.FragmentEpisodesBinding
 
 class EpisodesFragment: Fragment() {
 
-    private var _binding: ActivityEpisodesBinding? = null
+    private var _binding: FragmentEpisodesBinding? = null
     private val binding get() = _binding!!
+    private val episodesViewModel: EpisodesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +26,30 @@ class EpisodesFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = ActivityEpisodesBinding.inflate(inflater, container, false)
+        _binding = FragmentEpisodesBinding.inflate(inflater, container, false)
         val view = binding.root
         arguments?.let {
             binding.toolbar.title = it.getString(TITLE)
             binding.toolbarShowImage.setImageResource(it.getInt(IMAGE_ID))
         }
-        initEpisodesRecyclerView()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.setTransitionName(binding.toolbarShowImage, TRANSITION_NAME_SHOW_SPLASH)
-    }
+//        postponeEnterTransition()
 
-    private fun initEpisodesRecyclerView() {
-        val episodes = mutableListOf<String>()
-        for (i in 1..100) {
-            episodes.add("Episode $i")
+        episodesViewModel.episodes.observe(viewLifecycleOwner) {
+            initEpisodesRecyclerView(it)
+//            (view.parent as? ViewGroup)?.doOnPreDraw {
+//                startPostponedEnterTransition()
+//            }
         }
+        episodesViewModel.loadEpisodes()
+     }
 
+    private fun initEpisodesRecyclerView(episodes: List<String>) {
         binding.episodesRecyclerView.adapter = EpisodeListAdapter(episodes)
         binding.episodesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }

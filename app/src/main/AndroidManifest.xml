@@ -13,11 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExandriaPodcast">
         <activity
-            android:name=".showepisodes.EpisodesActivity"
-            android:exported="false"
-            android:parentActivityName=".main.ExandriaPodcastsActivity"
-            android:theme="@style/Theme.ExandriaPodcast.ShowToEpisodesTransition.NoActionBar"/>
-        <activity
             android:name=".main.ExandriaPodcastsActivity"
             android:exported="true">
             <intent-filter>

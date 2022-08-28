@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import gishlabs.exandriapodcast.R
 import gishlabs.exandriapodcast.data.Show
 import gishlabs.exandriapodcast.databinding.FragmentShowSelectionBinding
@@ -37,6 +38,7 @@ class ShowSelectionFragment : Fragment(), ShowSelectionAdapter.OnShowSelectedLis
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentShowSelectionBinding.inflate(inflater, container, false)
         val view = binding.root
+        prepareTransitions()
         initShowsGrid()
 
         return view
@@ -63,14 +65,12 @@ class ShowSelectionFragment : Fragment(), ShowSelectionAdapter.OnShowSelectedLis
         })
     }
 
+    private fun prepareTransitions() {
+        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_image_exit_transition)
+    }
+
     override fun onShowSelected(sharedView: ImageView, transitionName: String, title: String, imageResourceId: Int) {
         callbacks?.onShowSelected(sharedView, transitionName, title, imageResourceId)
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ShowSelectionFragment()
-    }
-
 
 }
