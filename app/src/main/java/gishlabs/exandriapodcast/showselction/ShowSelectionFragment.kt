@@ -22,16 +22,12 @@ class ShowSelectionFragment : Fragment(), ShowSelectionAdapter.OnShowSelectedLis
 
     interface Callbacks {
         // TODO Remove imageResouceID
-        fun onShowSelected(sharedImage: ImageView, transitionName: String, showTitle: String, imageResourceId: Int)
+        fun onShowSelected(sharedImage: ImageView, showTitle: String, imageResourceId: Int)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callbacks = context as Callbacks
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -63,8 +59,8 @@ class ShowSelectionFragment : Fragment(), ShowSelectionAdapter.OnShowSelectedLis
         })
     }
 
-    override fun onShowSelected(sharedView: ImageView, transitionName: String, title: String, imageResourceId: Int) {
-        callbacks?.onShowSelected(sharedView, transitionName, title, imageResourceId)
+    override fun onShowSelected(sharedView: ImageView, title: String, imageResourceId: Int) {
+        callbacks?.onShowSelected(sharedView, title, imageResourceId)
     }
 
     companion object {

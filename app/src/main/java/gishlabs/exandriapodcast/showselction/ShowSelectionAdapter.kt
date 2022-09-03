@@ -16,7 +16,7 @@ class ShowSelectionAdapter(
 ) : RecyclerView.Adapter<ShowSelectionAdapter.ViewHolder>() {
 
     interface OnShowSelectedListener {
-        fun onShowSelected(sharedView: ImageView, transitionName: String, title: String, imageResourceId: Int)
+        fun onShowSelected(sharedView: ImageView, title: String, imageResourceId: Int)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -39,11 +39,9 @@ class ShowSelectionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.titleTextView.text = shows[position].name
         holder.backgroundImage.setImageResource(shows[position].imageResourceID)
-        holder.backgroundImage.transitionName = "show_$position"
 
         holder.showContainerView.setOnClickListener {
-            showSelectedListener.onShowSelected(holder.backgroundImage, holder.backgroundImage.transitionName,
-                holder.titleTextView.text.toString(), shows[position].imageResourceID)
+            showSelectedListener.onShowSelected(holder.backgroundImage, holder.titleTextView.text.toString(), shows[position].imageResourceID)
         }
     }
 

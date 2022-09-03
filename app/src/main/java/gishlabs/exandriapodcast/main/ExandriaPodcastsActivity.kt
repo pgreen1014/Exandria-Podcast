@@ -26,13 +26,11 @@ class ExandriaPodcastsActivity : AppCompatActivity(), ShowSelectionFragment.Call
 
     override fun onShowSelected(
         sharedImage: ImageView,
-        transitionName: String,
         showTitle: String,
         imageResourceId: Int
     ) {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            addSharedElement(sharedImage, EpisodesFragment.TRANSITION_NAME_SHOW_SPLASH)
             replace(R.id.fragment_container_view, EpisodesFragment.newInstance(showTitle, imageResourceId))
             addToBackStack(null)
         }
