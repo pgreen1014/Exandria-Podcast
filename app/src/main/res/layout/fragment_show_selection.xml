@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
         app:title="@string/app_name"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import gishlabs.exandriapodcast.R
 import gishlabs.exandriapodcast.data.Show
 import gishlabs.exandriapodcast.databinding.FragmentShowSelectionBinding
@@ -28,6 +29,10 @@ class ShowSelectionFragment : Fragment(), ShowSelectionAdapter.OnShowSelectedLis
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callbacks = context as Callbacks
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

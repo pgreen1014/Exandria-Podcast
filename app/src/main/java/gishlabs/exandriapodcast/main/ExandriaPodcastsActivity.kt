@@ -24,15 +24,13 @@ class ExandriaPodcastsActivity : AppCompatActivity(), ShowSelectionFragment.Call
 
     }
 
-    override fun onShowSelected(
-        sharedImage: ImageView,
-        showTitle: String,
-        imageResourceId: Int
-    ) {
+    override fun onShowSelected(sharedImage: ImageView, showTitle: String, imageResourceId: Int) {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(R.anim.fragment_slide_in, R.anim.fragment_fade_out, R.anim.fragment_fade_in, R.anim.fragment_slide_out)
             replace(R.id.fragment_container_view, EpisodesFragment.newInstance(showTitle, imageResourceId))
             addToBackStack(null)
         }
+
     }
 }

@@ -6,22 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import gishlabs.exandriapodcast.databinding.ActivityEpisodesBinding
+import gishlabs.exandriapodcast.databinding.FragmentEpisodesBinding
 
 class EpisodesFragment: Fragment() {
 
-    private var _binding: ActivityEpisodesBinding? = null
+    private var _binding: FragmentEpisodesBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = ActivityEpisodesBinding.inflate(inflater, container, false)
+        _binding = FragmentEpisodesBinding.inflate(inflater, container, false)
         val view = binding.root
         arguments?.let {
             binding.toolbar.title = it.getString(TITLE)
-            binding.toolbarShowImage.setImageResource(it.getInt(IMAGE_ID))
+//            binding.toolbarShowImage.setImageResource(it.getInt(IMAGE_ID))
         }
-        initEpisodesRecyclerView()
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        initEpisodesRecyclerView()
     }
 
     private fun initEpisodesRecyclerView() {
